@@ -3,12 +3,16 @@
 .B autogen
 \- Generates files needed by autotools.
 .SH SYNOPSIS
-autogen [option] project_name
+autogen [option] program_name main_src_name [other.c ....]
 .br
 .SH OPTIONS
 -h, outputs a brief help message.
 .br
--m, requires an argument being the manpage section symbols.
+-m, requires an argument being the manpage file name.
+.br
+-A, requires an argument being the filename that lists the other
+.br
+conributing authors.
 .SH DESCRIPTION
 The program does three tasks, it hardlinks most of the files needed by
 .br
@@ -18,23 +22,19 @@ followed by Makefile.am. If the -m option has been selected it inserts
 .br
 the man_MAN macro.
 .br
-All files are of the form project_name, project_name.c and if
-.br
-applicable, project_name.manpage_section.
-
-.br
 .SH EXAMPLES
-Example:  autogen -m1 autogen
+Example:
+.br
+autogen -m autogen.1 -A AUTHORS.other autogen autogem.c sub.c
 .br
 The option -m1 states that there is a manpage, autogen(1) and that the
-project name is autogen.
+project name is autogen, the sources are autogen.c and sub.c.
 .br
-
 .P
 .SH VERSION
 This documentation describes
 .B autogen
-version 1.0.0
+version 1.0.1
 .SH "SEE ALSO"
 myconfig(1)
 .br
