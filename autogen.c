@@ -56,6 +56,7 @@ char *helpmsg = "\n\tUsage: autogen projectname\n"
   "\t-h, outputs this help message.\n"
   "\t-m, manpage name (If there is a manpage.)\n"
   "\t-A, file listing contributing authors if any.\n"
+  "\t-d, filename to copy to /usr/local/share, if any.\n"
   ;
 
 char *author = "Robert L (Bob) Parker <rlp1938@gmail.com";
@@ -66,15 +67,15 @@ FILE *dofopen(const char *path, const char *mode);
 
 int main(int argc, char **argv)
 {
-	int opt, i, hasman, hascontrib;
+	int opt, i, hasman, hascontrib, hasdata;
 	struct stat sb;
 	char programname[FN_MAX], sources[FN_MAX], manpagename[FN_MAX],
-		contribauthors[FN_MAX], readbuffer[FN_MAX];
+		contribauthors[FN_MAX], readbuffer[FN_MAX], sharedata[FN_MAX];
 	char cwd[PATH_MAX];
 	FILE *fpo;
-	hasman = hascontrib = 0;
+	hasman = hascontrib = hasdata = 0;
 
-	while((opt = getopt(argc, argv, ":hm:A:")) != -1) {
+	while((opt = getopt(argc, argv, ":hm:A:d:")) != -1) {
 		switch(opt){
 		case 'h':
 			dohelp(0);
@@ -86,6 +87,10 @@ int main(int argc, char **argv)
 		case 'A':
 			hascontrib = 1;
 			strcpy(contribauthors, optarg);
+		break;
+		case 'd':
+			hasdata = 1;
+			strcpy(sharedata, optarg);
 		break;
 		case ':':
 			fprintf(stderr, "Option %c requires an argument\n",optopt);
@@ -175,6 +180,9 @@ int main(int argc, char **argv)
 	fprintf(fpo, "%s_SOURCES=%s\n\n", programname, sources);
 	if (hasman)  {
 		fprintf(fpo, "man_MANS=%s\n", manpagename);
+	}
+	if (hasdata)  {
+		fprintf(fpo, "data_DATA=%s\n", sharedata);
 	}
 
 	fclose(fpo);
