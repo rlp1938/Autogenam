@@ -51,7 +51,8 @@ char * required[4] = {
 
 char *stdpath = "/home/bob/Documents/Programs/_STANDARD/";
 
-char *helpmsg = "\n\tUsage: autogen projectname\n"
+char *helpmsg = "\n\tUsage:\n"
+  "\tautogen program_name main_src_name [other.c ....]\n"
   "\n\tOptions:\n"
   "\t-h, outputs this help message.\n"
   "\t-m, manpage name (If there is a manpage.)\n"
