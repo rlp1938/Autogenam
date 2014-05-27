@@ -58,6 +58,10 @@ char *helpmsg = "\n\tUsage:\n"
   "\t-m, manpage name (If there is a manpage.)\n"
   "\t-A, file listing contributing authors if any.\n"
   "\t-d, filename to copy to /usr/local/share, if any.\n"
+  "\t-x, filename, you can invoke this once for every\n"
+  "\t    filename, or list all files protected by quotes and\n"
+  "\t    space separated. There is no need to name any manpage\n"
+  "\t    file here because it will be included automatically.\n"
   ;
 
 char *author = "Robert L (Bob) Parker <rlp1938@gmail.com";
@@ -68,15 +72,15 @@ FILE *dofopen(const char *path, const char *mode);
 
 int main(int argc, char **argv)
 {
-	int opt, i, hasman, hascontrib, hasdata;
+	int opt, i, hasman, hascontrib, hasdata, hasextra;
 	struct stat sb;
 	char programname[FN_MAX], sources[FN_MAX], manpagename[FN_MAX],
 		contribauthors[FN_MAX], readbuffer[FN_MAX], sharedata[FN_MAX];
-	char cwd[PATH_MAX];
+	char cwd[PATH_MAX], extrabuild[FN_MAX];
 	FILE *fpo;
-	hasman = hascontrib = hasdata = 0;
+	hasman = hascontrib = hasdata = hasextra = 0;
 
-	while((opt = getopt(argc, argv, ":hm:A:d:")) != -1) {
+	while((opt = getopt(argc, argv, ":hm:A:d:x:")) != -1) {
 		switch(opt){
 		case 'h':
 			dohelp(0);
@@ -84,6 +88,14 @@ int main(int argc, char **argv)
 		case 'm':
 			hasman = 1;
 			strcpy(manpagename, optarg);
+			hasextra = 1;
+			if(strlen(extrabuild)) {
+				strcat(extrabuild, " ");
+				strcat(extrabuild, optarg);
+			} else {
+				strcpy(extrabuild, optarg);
+			}
+
 		break;
 		case 'A':
 			hascontrib = 1;
@@ -92,6 +104,15 @@ int main(int argc, char **argv)
 		case 'd':
 			hasdata = 1;
 			strcpy(sharedata, optarg);
+		break;
+		case 'x':
+			hasextra = 1;
+			if(strlen(extrabuild)) {
+				strcat(extrabuild, " ");
+				strcat(extrabuild, optarg);
+			} else {
+				strcpy(extrabuild, optarg);
+			}
 		break;
 		case ':':
 			fprintf(stderr, "Option %c requires an argument\n",optopt);
@@ -183,7 +204,23 @@ int main(int argc, char **argv)
 		fprintf(fpo, "man_MANS=%s\n", manpagename);
 	}
 	if (hasdata)  {
-		fprintf(fpo, "data_DATA=%s\n", sharedata);
+		char line[FN_MAX];
+		// ???dir=$(datadir)/???????
+		strncpy(line, programname, 3);
+		line[3] ='\0';
+		strcat(line, "dir=$(datadir)/");
+		strcat(line, programname);
+		strcat(line, "\n");
+		fputs(line, fpo);
+		// ???_DATA=???????.conf
+		line[3] = '\0';
+		strcat(line, "_DATA=");
+		strcat(line, sharedata);
+		strcat(line, "\n");
+		fputs(line, fpo);
+	}
+	if (hasextra){
+		fprintf(fpo, "EXTRA_BUILD=%s\n", extrabuild);
 	}
 
 	fclose(fpo);
