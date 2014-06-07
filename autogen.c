@@ -49,7 +49,7 @@ char * required[4] = {
 	(char *)NULL
 };
 
-char *stdpath = "/home/bob/Documents/Programs/_STANDARD/";
+char *stdpath = "/home/bob/Documents/Programs/STANDARD/";
 
 char *helpmsg = "\n\tUsage:\n"
   "\tautogen program_name main_src_name [other.c ....]\n"
