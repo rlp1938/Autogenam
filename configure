@@ -4210,7 +4210,7 @@ done
 # Checks for typedefs, structures, and compiler characteristics.
 
 # Checks for library functions.
-for ac_func in getcwd strdup
+for ac_func in getcwd strdup strchr
 do :
   as_ac_var=`$as_echo "ac_cv_func_$ac_func" | $as_tr_sh`
 ac_fn_c_check_func "$LINENO" "$ac_func" "$as_ac_var"

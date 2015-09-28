@@ -18,7 +18,7 @@ AC_CHECK_HEADERS([stdlib.h string.h unistd.h])
 # Checks for typedefs, structures, and compiler characteristics.
 
 # Checks for library functions.
-AC_CHECK_FUNCS([getcwd strdup])
+AC_CHECK_FUNCS([getcwd strdup strchr])
 
 AC_CONFIG_FILES([Makefile])
 AC_OUTPUT
