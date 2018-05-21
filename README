@@ -1,5 +1,5 @@
 This is a really simple ie brain dead program to initialise all files
 required by autotools.
 
-Author name and email address is hardwired into autogen.c.
+Author name and email address is hardwired into autogenam.c.
 So to is the source of hardlinked files.
