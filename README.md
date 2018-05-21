@@ -1,20 +1,15 @@
 # AUTOGENAM
 
 
-% AUTOGENAM(1) Version 1.0 | Autogenam Documentation
-
-NAME
-====
+## NAME
 
 **autogenam** — Generates files needed by autotools.
 
-SYNOPSIS
-========
+## SYNOPSIS
 
-| **autogenam** \[option] *program_name* main_src_name.c \[other.c|h ...]
+**autogenam** \[option] *program_name* main_src_name.c \[other.c|h ...]
 
-DESCRIPTION
-===========
+## DESCRIPTION
 
 The  program  does three tasks, it hardlinks most of the files needed
 by autotools in the current directory. Then it generates the  AUTHORS
@@ -22,16 +17,13 @@ file  followed  by Makefile.am. If the -m option has been selected it
 inserts the man_MAN macro.
 
 
-Options
-=======
+## Options
 
--h  
++ -h  
+Prints brief usage information then quits.
 
-:   Prints brief usage information then quits.
-
--m  
-
-:   requires an argument being the manpage file name.
++ -m  
+requires an argument being the manpage file name.
 
 -A  
 
