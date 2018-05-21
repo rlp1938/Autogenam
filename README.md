@@ -19,39 +19,32 @@ inserts the man_MAN macro.
 
 ## Options
 
-+ -h  
++ **-h**  
 Prints brief usage information then quits.
 
-+ -m  
++ **-m**  
 requires an argument being the manpage file name.
 
--A  
-
-:   requires an argument being the filename that lists the other
++ **-A**  
+requires an argument being the filename that lists the other
 conributing authors.
 
--d  
++ **-d**  
+a file to install in /usr/local/share/*program_name*
 
-:   a file to install in /usr/local/share/*program_name*
-
--x  
-
-:   files to 'EXTRA_BUILD'. You invoke this once for each file or use
++  **-x**  
+files to 'EXTRA_BUILD'. You invoke this once for each file or use
 a quote protected space separated list of filenames. Do not include
 any man page input, this is handled automatically.
 
-
-AUTHOR
-======
+## AUTHOR
 
 Bob.Parker@programmer.net
 
-DATE
-====
+## DATE
 
 2018-05-22
 
-SEE ALSO
-========
+## SEE ALSO
 
 **autoconf**(1), **automake**(1), **autoscan**(1)
