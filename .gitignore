@@ -6,9 +6,10 @@
 /config.status
 /configure.scan
 /.deps/
-/autogen
-/autogen.plist/
-/autogen.t2t
+/autogenam
+/autogenam.plist/
+/autogenam.t2t
+/autogenam.md
 /Makefile
 /stamp-h1
 /test*
