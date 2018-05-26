@@ -49,6 +49,10 @@ char * required[4] = {
 	(char *)NULL
 };
 
+char *path1 = "/home/";
+char *path2 =  ""; // from environment variable LOGNAME ; echo $LOGNAME
+char *path3 = "/Documents/Programs/Srclib/";
+
 char *stdpath = "/home/bob/Documents/Programs/Srclib/";
 
 char *helpmsg = "\n\tUsage:\n"
