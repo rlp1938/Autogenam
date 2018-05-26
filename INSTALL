@@ -8,37 +8,44 @@ This however is an autotools based project so there is no configure
 script provided. It is expected that it will be generated from
 configure.ac.
 
-Using a modern version of `autoreconf -i` may be enough to do the job.
-Failing that `autoconf && autoheader && automake -a` followed by the
-`INSTALL` instructions may build the program.
+So, to start:
+1. Clone the source code and enter the source dir.
 
-My attempts to build a program useable in `gdb` by using this line
-'AM_CFLAGS=-Wall -Wextra -g -O0 -D_GNU_SOURCE=1'
-in my 'Makefile.am' has succeeded only in doubling the program size
-whilst generating something that is still totally useless in the
-debugger. So consequently I also provide `build.sh`.
+2. autoreconf -i
+It is expected to install/create any missing Gnu required files.
+If it fails with an error eg 'No README ...' just `touch README`
+and so on.
 
-Possibly Linux users in general, or at least Debian based users in
-particular, may only need to `./build.sh` in order to avoid the
-autotools and tarball mess altogether.
+3. Follow this with `./configure`
+Now, there is a 'feature' of the autotools chain that everything is
+built with compiler options -g /* produce debugging information*/, and
+-O2 /* some optimisations */. For C programs this combination is quite
+unhelpful when using gdb. Trying to avoid this by setting values of
+AM_CFLAGS in Makefile.am is futile.
 
-Start with `./build.sh -h` to learn options.
+4. I did find ways online, of tweaking Makefile.am to produce more
+useful combinations of compiler options but the tool chain has been
+'improved' to stop the published tweaks working.
 
-Investigation has revealed that 'autotools' is so broken as to be
-useless.
+5. Ways to work around this:
+  a) ./configure CFLAGS = '-g -O0'	/* Fit for using gdb */ or,
+  b) ./configure CFLAGS = '-O2'		/* Optimised */
+  c) ./configure and tweak the generated Makefile afterward.
+     I have provided `fixmakefile` a script to set CFLAGS in Makefile
+     to one of two values: `fixmakefile` or `fixmakefile -d` will set
+     CFLAGS = '-g -O0' and `fixmakefile -o` will set CFLAGS = '-O2'.
 
-I will provide an installation script ASAP but in the meanwhile I
-recommend the following procedure:
+6. Following this `make` must be run. NB if `make` has been run prior
+you may need to start with `make clean`.
 
-Build the system, `autoreconf -i` as above.
-./configure && make && sudo make install	# manpage and other shares.
-`./build.sh -o`	# optimised, you can do a debug build.
-`sudo cp <program_name> /usr/local/bin/`
-`mv` may be better than `cp` if you want to keep your build dir clean.
-
-Finally, for those who feel more comfortable using tarballs, I will
+7. Finally, for those who feel more comfortable using tarballs, I will
 generate and send one by email on request. Please email me at
 Bob.Parker@programmer.net if required.
+
+8. And one more item. If your program, built optimised is considered
+size 1, then that built with -g and O0 well be about 2x. If you just
+leave it as an unaltered .configure && make it will be about size 4x
+and still be just about useless in `gdb`.
 
 Copyright (C) 1994-1996, 1999-2002, 2004-2013 Free Software Foundation,
 Inc.
