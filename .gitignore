@@ -1,4 +1,4 @@
-/autom4te.cache/
+/autom4te.cache/*
 /autoscan.log
 /config.h
 /config.h.in~
