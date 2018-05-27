@@ -31,9 +31,9 @@ useful combinations of compiler options but the tool chain has been
   a) ./configure CFLAGS = '-g -O0'	/* Fit for using gdb */ or,
   b) ./configure CFLAGS = '-O2'		/* Optimised */
   c) ./configure and tweak the generated Makefile afterward.
-     I have provided `fixmakefile` a script to set CFLAGS in Makefile
-     to one of two values: `fixmakefile` or `fixmakefile -d` will set
-     CFLAGS = '-g -O0' and `fixmakefile -o` will set CFLAGS = '-O2'.
+     I have provided `set_cflags` a script to set CFLAGS in Makefile
+     to one of two values: `set_cflags` or `set_cflags -d` will set
+     CFLAGS = '-g -O0' and `set_cflags -o` will set CFLAGS = '-O2'.
 
 6. Following this `make` must be run. NB if `make` has been run prior
 you may need to start with `make clean`.
@@ -43,7 +43,7 @@ generate and send one by email on request. Please email me at
 Bob.Parker@programmer.net if required.
 
 8. And one more item. If your program, built optimised is considered
-size 1, then that built with -g and O0 well be about 2x. If you just
+size 1, then that built with -g and O0 will be about 2x. If you just
 leave it as an unaltered .configure && make it will be about size 4x
 and still be just about useless in `gdb`.
 
